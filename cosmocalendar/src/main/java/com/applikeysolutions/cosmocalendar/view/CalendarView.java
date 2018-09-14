@@ -17,6 +17,7 @@ import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,7 +67,7 @@ import java.util.TreeSet;
 
 public class CalendarView extends RelativeLayout implements OnDaySelectedListener,
         AppearanceInterface, DateInterface, CalendarListsInterface, SelectionInterface, MultipleSelectionBarAdapter.ListItemClickListener, GravitySnapHelper.SnapListener {
-
+    private static final String TAG = "CalendarView";
     private List<Day> selectedDays;
 
     // Day selection listener
@@ -687,9 +688,14 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
 
     @Override
     public void onDaySelected() {
-
+        Log.d(TAG, "onDaySelected: ");
         selectedDays = getSelectedDays();
         displaySelectedDays();
+        for (Calendar calendar:getSelectedDates()) {
+            Log.d(TAG, "onDaySelected: " + calendar.getTime());
+        }
+
+
 
         if (mRangeDaySelectionListener != null) {
             mRangeDaySelectionListener.onRangeDaySelected(getSelectedDates());

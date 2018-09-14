@@ -2,12 +2,13 @@ package com.applikeysolutions.cosmocalendar.selection;
 
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
+import android.util.Log;
 
 import com.applikeysolutions.cosmocalendar.model.Day;
 import com.applikeysolutions.cosmocalendar.utils.DateUtils;
 
 public class RangeSelectionManager extends BaseSelectionManager {
-
+    private static final String TAG = "RangeSelectionManager";
     private Pair<Day, Day> days;
     private Day tempDay;
 
@@ -16,11 +17,13 @@ public class RangeSelectionManager extends BaseSelectionManager {
     }
 
     public Pair<Day, Day> getDays() {
+
         return days;
     }
 
     @Override
     public void setInitialPair(Day start, Day end) {
+
         days = Pair.create(start, end);
     }
 
@@ -31,16 +34,25 @@ public class RangeSelectionManager extends BaseSelectionManager {
 
     @Override
     public void toggleDay(@NonNull Day day) {
+        Log.d(TAG, "toggleDay: " + day.getCalendar().getTime());
         if (days == null && tempDay == null || tempDay == null) {
+            Log.d(TAG, "toggleDay: days == null && tempDay == null || tempDay == null");
             tempDay = day;
             days = null;
         } else {
-            if (tempDay == day) {
+
+           /*########## Remove comment if you do not want to select date range with the same day ############# */
+            /*if (tempDay == day) {
+                Log.d(TAG, "toggleDay: tempDay == day");
                 return;
-            }
+            }*/
+
+
             if (tempDay.getCalendar().getTime().before(day.getCalendar().getTime())) {
+                Log.d(TAG, "toggleDay: tempDay.getCalendar().getTime().before(day.getCalendar().getTime()"  );
                 days = Pair.create(tempDay, day);
             } else {
+                Log.d(TAG, "toggleDay:  days = Pair.create(day, tempDay)");
                 days = Pair.create(day, tempDay);
             }
             tempDay = null;
@@ -50,10 +62,12 @@ public class RangeSelectionManager extends BaseSelectionManager {
 
     @Override
     public boolean isDaySelected(@NonNull Day day) {
+
         return isDaySelectedManually(day);
     }
 
     private boolean isDaySelectedManually(@NonNull Day day) {
+
         if (tempDay != null) {
             return day.equals(tempDay);
         } else if (days != null) {
@@ -65,11 +79,13 @@ public class RangeSelectionManager extends BaseSelectionManager {
 
     @Override
     public void clearSelections() {
+
         days = null;
         tempDay = null;
     }
 
     public SelectionState getSelectedState(Day day) {
+
         if (!isDaySelectedManually(day)) {
             return SelectionState.SINGLE_DAY;
         }
