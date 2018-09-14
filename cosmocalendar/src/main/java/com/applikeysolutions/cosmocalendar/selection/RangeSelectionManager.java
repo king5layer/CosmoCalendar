@@ -16,6 +16,7 @@ public class RangeSelectionManager extends BaseSelectionManager {
         this.onDaySelectedListener = onDaySelectedListener;
     }
 
+    @Override
     public Pair<Day, Day> getDays() {
 
         return days;

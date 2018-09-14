@@ -1,6 +1,7 @@
 package com.applikeysolutions.cosmocalendar.selection;
 
 import android.support.annotation.NonNull;
+import android.support.v4.util.Pair;
 
 import com.applikeysolutions.cosmocalendar.model.Day;
 import com.applikeysolutions.cosmocalendar.selection.criteria.BaseCriteria;
@@ -59,6 +60,12 @@ public class MultipleSelectionManager extends BaseCriteriaSelectionManager {
     public void clearSelections() {
         days.clear();
     }
+
+    @Override
+    public Pair<Day, Day> getDays() {
+        return null;
+    }
+
 
     public void removeDay(Day day) {
         days.remove(day);

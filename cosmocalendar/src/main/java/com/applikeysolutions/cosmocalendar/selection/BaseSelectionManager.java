@@ -1,6 +1,7 @@
 package com.applikeysolutions.cosmocalendar.selection;
 
 import android.support.annotation.NonNull;
+import android.support.v4.util.Pair;
 
 import com.applikeysolutions.cosmocalendar.model.Day;
 
@@ -17,6 +18,8 @@ public abstract class BaseSelectionManager {
     public abstract boolean isDaySelected(@NonNull Day day);
 
     public abstract void clearSelections();
+
+    public abstract Pair<Day, Day> getDays();
 
     public BaseSelectionManager() {
     }

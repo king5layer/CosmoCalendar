@@ -59,6 +59,7 @@ import com.applikeysolutions.cosmocalendar.view.delegate.OnSingleDaySelectedDele
 import com.applikeysolutions.customizablecalendar.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
@@ -656,6 +657,24 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
         return selectedDays;
     }
 
+    public List<Calendar> getSelectedDatesRange() {
+
+        Pair<Day, Day> mDays = selectionManager.getDays();
+        List<Calendar> mCalendar = new ArrayList<>();
+
+        if (mDays == null) return mCalendar;
+
+        if (mDays.first != null) {
+            mCalendar.add(mDays.first.getCalendar());
+        }
+
+        if (mDays.second != null) {
+            mCalendar.add(mDays.second.getCalendar());
+        }
+
+        return mCalendar;
+    }
+
     /**
      * Scroll calendar to previous month
      */
@@ -691,16 +710,26 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
         Log.d(TAG, "onDaySelected: ");
         selectedDays = getSelectedDays();
         displaySelectedDays();
+
+        int cont = 1;
         for (Calendar calendar:getSelectedDates()) {
-            Log.d(TAG, "onDaySelected: " + calendar.getTime());
+            Log.d(TAG, "onDaySelected: " + calendar.getTime() + "contador: "+ cont);
+            cont++;
+        }
+
+        for (Day day:selectedDays) {
+            Log.d(TAG, "onDaySelected: day: "+ day.getCalendar().getTime());
+
         }
 
 
 
         if (mRangeDaySelectionListener != null) {
-            mRangeDaySelectionListener.onRangeDaySelected(getSelectedDates());
+            Log.d(TAG, "onDaySelected: mRangeDaySelectionListener");
+            mRangeDaySelectionListener.onRangeDaySelected(getSelectedDatesRange());
 
         } else if (mSingleSelectionListener != null) {
+            Log.d(TAG, "onDaySelected: mSingleSelectionListener");
             mSingleSelectionListener.onSingleDaySelected(getSelectedDates().get(0));
         }
     }

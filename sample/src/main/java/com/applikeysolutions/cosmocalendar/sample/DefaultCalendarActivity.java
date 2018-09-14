@@ -72,8 +72,8 @@ public class DefaultCalendarActivity extends AppCompatActivity implements RadioG
             mDayInit = new Day(mDateFormat.parse(mDateInit));
             mDayEnd = new Day(mDateFormat.parse(mDateEnd));
 
-            //initViews(mDayInit, mDayEnd);
-            initViews(mDayInit);
+            initViews(mDayInit, mDayEnd);
+            //initViews(mDayInit);
 
         } catch (ParseException e) {
             Log.d(DefaultCalendarActivity.class.getSimpleName(), e.getMessage());
@@ -81,7 +81,7 @@ public class DefaultCalendarActivity extends AppCompatActivity implements RadioG
         createCriterias();
     }
 
-    // single
+    // single>
     private void initViews(Day mDay) {
 
         mDay.setSelectionState(SelectionState.SINGLE_DAY);
@@ -103,6 +103,7 @@ public class DefaultCalendarActivity extends AppCompatActivity implements RadioG
         calendarView.setCalendarOrientation(OrientationHelper.HORIZONTAL);
         calendarView.setSelectionType(SelectionType.RANGE);
         calendarView.setSelectedDaysRange(start, end);
+        calendarView.setRangeSelectionDelegate(this);
 
         ((RadioGroup) findViewById(R.id.rg_orientation)).setOnCheckedChangeListener(this);
         ((RadioGroup) findViewById(R.id.rg_selection_type)).setOnCheckedChangeListener(this);
@@ -262,10 +263,11 @@ public class DefaultCalendarActivity extends AppCompatActivity implements RadioG
 
     @Override
     public void onRangeDaySelected(List<Calendar> days) {
-        Log.d(TAG, "Range days selected...");
-
+        Log.d(TAG, "Range days selected..." + days.size());
+        int cont =1;
         for (Calendar calendar : days) {
-            Log.d(TAG, calendar.getTime() + "");
+            Log.d(TAG, "Rango de fecha Seleccionado"+ calendar.getTime() + " Contador: "+ cont );
+            cont++;
         }
     }
 }

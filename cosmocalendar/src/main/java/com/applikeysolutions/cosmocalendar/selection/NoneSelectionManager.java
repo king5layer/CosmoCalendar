@@ -1,6 +1,7 @@
 package com.applikeysolutions.cosmocalendar.selection;
 
 import android.support.annotation.NonNull;
+import android.support.v4.util.Pair;
 
 import com.applikeysolutions.cosmocalendar.model.Day;
 
@@ -34,4 +35,11 @@ public class NoneSelectionManager extends BaseSelectionManager {
     public void clearSelections() {
 
     }
+
+    @Override
+    public Pair<Day, Day> getDays() {
+        return null;
+    }
+
+
 }
