@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 import android.util.Log;
 
+
 import com.applikeysolutions.cosmocalendar.model.Day;
 import com.applikeysolutions.cosmocalendar.utils.DateUtils;
 
@@ -12,8 +13,18 @@ public class RangeSelectionManager extends BaseSelectionManager {
     private Pair<Day, Day> days;
     private Day tempDay;
 
-    public RangeSelectionManager(OnDaySelectedListener onDaySelectedListener) {
+    public enum RangeDateSelect {SAME_DAY,NOT_SAME_DAY }
+    private RangeDateSelect rangeDateSelect;
+
+    public RangeSelectionManager(OnDaySelectedListener onDaySelectedListener, RangeDateSelect rangeDateSelect) {
         this.onDaySelectedListener = onDaySelectedListener;
+
+        if(rangeDateSelect==null){
+            this.rangeDateSelect =RangeDateSelect.SAME_DAY;
+        }else {
+            this.rangeDateSelect = rangeDateSelect;
+        }
+
     }
 
     @Override
@@ -43,10 +54,13 @@ public class RangeSelectionManager extends BaseSelectionManager {
         } else {
 
            /*########## Remove comment if you do not want to select date range with the same day ############# */
-            /*if (tempDay == day) {
-                Log.d(TAG, "toggleDay: tempDay == day");
-                return;
-            }*/
+            if(rangeDateSelect.equals(RangeDateSelect.NOT_SAME_DAY)){
+                   if (tempDay == day) {
+                        Log.d(TAG, "toggleDay: tempDay == day");
+                        return;
+                   }
+            }
+
 
 
             if (tempDay.getCalendar().getTime().before(day.getCalendar().getTime())) {

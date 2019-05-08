@@ -107,6 +107,9 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
 
     private FetchMonthsAsyncTask asyncTask;
 
+    //Type Selector Range Date
+    RangeSelectionManager.RangeDateSelect rangeDateSelect;
+
     public CalendarView(Context context) {
         super(context);
         init();
@@ -378,6 +381,7 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
         llDaysOfWeekTitles.setVisibility(View.GONE);
     }
 
+
     private void setSelectionManager() {
         switch (getSelectionType()) {
             case SelectionType.SINGLE:
@@ -389,7 +393,8 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
                 break;
 
             case SelectionType.RANGE:
-                selectionManager = new RangeSelectionManager(this);
+                selectionManager = new RangeSelectionManager(this, rangeDateSelect);
+
                 break;
 
             case SelectionType.NONE:
@@ -402,6 +407,11 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
         this.selectionManager = selectionManager;
         monthAdapter.setSelectionManager(selectionManager);
         update();
+    }
+
+    public void setRangeDateTypeSelector( RangeSelectionManager.RangeDateSelect rangeDateSelect){
+        this.rangeDateSelect = rangeDateSelect;
+
     }
 
     public BaseSelectionManager getSelectionManager() {

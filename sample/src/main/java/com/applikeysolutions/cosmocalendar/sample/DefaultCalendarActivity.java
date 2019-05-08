@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.applikeysolutions.cosmocalendar.model.Day;
 import com.applikeysolutions.cosmocalendar.selection.MultipleSelectionManager;
+import com.applikeysolutions.cosmocalendar.selection.RangeSelectionManager;
 import com.applikeysolutions.cosmocalendar.selection.SelectionState;
 import com.applikeysolutions.cosmocalendar.selection.criteria.BaseCriteria;
 import com.applikeysolutions.cosmocalendar.selection.criteria.WeekDayCriteria;
@@ -104,6 +105,8 @@ public class DefaultCalendarActivity extends AppCompatActivity implements RadioG
         calendarView.setSelectionType(SelectionType.RANGE);
         calendarView.setSelectedDaysRange(start, end);
         calendarView.setRangeSelectionDelegate(this);
+
+
 
         ((RadioGroup) findViewById(R.id.rg_orientation)).setOnCheckedChangeListener(this);
         ((RadioGroup) findViewById(R.id.rg_selection_type)).setOnCheckedChangeListener(this);
